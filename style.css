@@ -86,10 +86,10 @@ canvas {
   background: transparent;
   color: var(--muted);
   cursor: pointer;
-  opacity: 0.6;
+  opacity: 0.3;
   -webkit-tap-highlight-color: transparent;
 }
-#toggles button[aria-pressed="false"] { opacity: 0.3; }
+#toggles button[aria-pressed="false"] { opacity: 0.18; }
 #toggles button:focus-visible { outline: 1px solid var(--muted); }
 #toggles svg { width: 100%; height: 100%; display: block; }
 #toggles .ic { fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
