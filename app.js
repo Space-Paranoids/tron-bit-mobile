@@ -286,7 +286,7 @@ let bit = { x: 0, y: 0, r: 1 };
 
 // A small, gentle drift that keeps Bit near the middle of the screen.
 function place(t, w, h) {
-  const r = Math.min(w, h) * 0.3;
+  const r = Math.min(Math.min(w, h) * 0.3, 140); // phone-sized, capped on big screens
   const ax = reduced ? 0.01 : 0.04, ay = reduced ? 0.01 : 0.03;
   const x = w / 2 + w * ax * (0.6 * Math.sin(t * 0.31) + 0.4 * Math.sin(t * 0.53 + 1.3));
   const y = h / 2 + h * ay * (0.6 * Math.sin(t * 0.43 + 0.7) + 0.4 * Math.sin(t * 0.71 + 2.1));
