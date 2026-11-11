@@ -21,6 +21,14 @@
 <div id="glow" data-mood="neutral"></div>
 <canvas id="bit" aria-label="Bit. Think of a yes or no question, then tap Bit." role="button" tabindex="0"></canvas>
 <div id="word" aria-live="polite"></div>
+<div id="toggles">
+<button id="t-sound" type="button" aria-pressed="true" aria-label="Sound" title="Sound on/off">
+<svg viewBox="0 0 24 24" aria-hidden="true"><path class="ic" d="M4 9h4l5-4v14l-5-4H4z"/><path class="ic on-only" d="M16 9a4 4 0 0 1 0 6M18.5 6.5a7.5 7.5 0 0 1 0 11"/><path class="ic off-only" d="M16 9l6 6M22 9l-6 6"/></svg>
+</button>
+<button id="t-text" type="button" aria-pressed="true" aria-label="Words" title="Words on/off">
+<svg viewBox="0 0 24 24" aria-hidden="true"><path class="ic" d="M3 18L8 6l5 12M5 14h6M14 18v-6a3 3 0 0 1 6 0v6M14 15h6"/><path class="ic off-only" d="M3 3l18 18"/></svg>
+</button>
+</div>
 <p id="hint">Think of a question<br>then tap Bit</p>
 <script src="app.js"></script>
 </body>

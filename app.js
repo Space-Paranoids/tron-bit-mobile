@@ -216,8 +216,34 @@ function unlockAudio() {
   if (audio.state !== "running") audio.resume();
 }
 
+// ---- settings: sound and words can each be switched off ---------------------
+
+// Remembered on this device only; if storage is blocked they just reset.
+const prefs = { sound: true, text: true };
+try {
+  const saved = JSON.parse(localStorage.getItem("bit-prefs") || "{}");
+  if (saved.sound === false) prefs.sound = false;
+  if (saved.text === false) prefs.text = false;
+} catch (_) {}
+
+function setupToggle(id, key) {
+  const btn = document.getElementById(id);
+  const show = () => btn.setAttribute("aria-pressed", String(prefs[key]));
+  show();
+  btn.addEventListener("click", () => {
+    prefs[key] = !prefs[key];
+    show();
+    if (key === "text" && !prefs.text) word.classList.remove("on");
+    try {
+      localStorage.setItem("bit-prefs", JSON.stringify(prefs));
+    } catch (_) {}
+  });
+}
+setupToggle("t-sound", "sound");
+setupToggle("t-text", "text");
+
 function say(name, when) {
-  if (!audio) return;
+  if (!audio || !prefs.sound) return;
   const play = () => {
     const b = clips[name];
     if (!b) return;
@@ -261,7 +287,7 @@ function ask(now) {
     glow.dataset.mood = answer;
     word.textContent = triple ? `${answer} ${answer} ${answer}` : answer;
     word.dataset.mood = answer;
-    word.classList.add("on");
+    if (prefs.text) word.classList.add("on");
   }, THINK * 1000);
   say(triple ? answer.repeat(3) : answer, THINK);
   state.backAt = start + hold;
@@ -328,6 +354,7 @@ function start(shapes) {
     if (Math.hypot(dx, dy) <= bit.r * 2) ask(t());
   });
   window.addEventListener("keydown", (ev) => {
+    if (ev.target.closest && ev.target.closest("button")) return; // a toggle has focus
     if (ev.key === " " || ev.key === "Enter") {
       ev.preventDefault();
       ask(t());
