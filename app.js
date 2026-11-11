@@ -286,7 +286,7 @@ let bit = { x: 0, y: 0, r: 1 };
 
 // A small, gentle drift that keeps Bit near the middle of the screen.
 function place(t, w, h) {
-  const r = Math.min(w, h) * 0.2;
+  const r = Math.min(w, h) * 0.3;
   const ax = reduced ? 0.01 : 0.04, ay = reduced ? 0.01 : 0.03;
   const x = w / 2 + w * ax * (0.6 * Math.sin(t * 0.31) + 0.4 * Math.sin(t * 0.53 + 1.3));
   const y = h / 2 + h * ay * (0.6 * Math.sin(t * 0.43 + 0.7) + 0.4 * Math.sin(t * 0.71 + 2.1));
@@ -315,7 +315,7 @@ function start(shapes) {
     const u = Math.min(1, Math.max(0, (now - state.changed) / MORPH));
     draw(shapes, { t: now, before: state.before, mood: state.mood, u }, bit.x * dpr, bit.y * dpr, bit.r * dpr, canvas.width, canvas.height);
     glow.style.transform = `translate(${bit.x}px, ${bit.y}px) translate(-50%, -50%)`;
-    glow.style.width = glow.style.height = `${bit.r * 5}px`;
+    glow.style.width = glow.style.height = `${bit.r * 3}px`;
     word.style.transform = `translate(${bit.x}px, ${bit.y + bit.r * 1.55}px) translate(-50%, 0)`;
     requestAnimationFrame(frame);
   };
