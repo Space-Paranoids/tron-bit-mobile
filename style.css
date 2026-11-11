@@ -52,7 +52,7 @@ canvas {
 #word.on { opacity: 1; }
 #word[data-mood="yes"] { color: rgb(var(--yes)); text-shadow: 0 0 14px rgba(var(--yes), 0.7); }
 #word[data-mood="no"] { color: rgb(var(--no)); text-shadow: 0 0 14px rgba(var(--no), 0.7); }
-#hint, #credit {
+#hint {
   position: fixed;
   left: 0;
   right: 0;
@@ -69,10 +69,3 @@ canvas {
   transition: opacity 1s;
 }
 #hint.gone { opacity: 0; }
-#credit {
-  bottom: calc(env(safe-area-inset-bottom, 0px) + 8px);
-  font-family: system-ui, sans-serif;
-  font-size: 10px;
-  letter-spacing: 0;
-  opacity: 0.35;
-}
