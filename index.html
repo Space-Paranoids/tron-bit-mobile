@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; media-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<title>Bit</title>
+<meta name="description" content="Think of a yes or no question and tap Bit.">
+<meta name="theme-color" content="#000a0b">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Bit">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="icons/favicon.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="glow" data-mood="neutral"></div>
+<canvas id="bit" aria-label="Bit. Think of a yes or no question, then tap Bit." role="button" tabindex="0"></canvas>
+<div id="word" aria-live="polite"></div>
+<p id="hint">Think of a question<br>then tap Bit</p>
+<p id="credit">Model by Ferjerez, CC BY 4.0</p>
+<script src="app.js"></script>
+</body>
+</html>
