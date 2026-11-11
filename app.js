@@ -289,7 +289,7 @@ function place(t, w, h) {
   const r = Math.min(w, h) * 0.2;
   const ax = reduced ? 0.01 : 0.04, ay = reduced ? 0.01 : 0.03;
   const x = w / 2 + w * ax * (0.6 * Math.sin(t * 0.31) + 0.4 * Math.sin(t * 0.53 + 1.3));
-  const y = h * 0.45 + h * ay * (0.6 * Math.sin(t * 0.43 + 0.7) + 0.4 * Math.sin(t * 0.71 + 2.1));
+  const y = h / 2 + h * ay * (0.6 * Math.sin(t * 0.43 + 0.7) + 0.4 * Math.sin(t * 0.71 + 2.1));
   return { x, y, r };
 }
 
