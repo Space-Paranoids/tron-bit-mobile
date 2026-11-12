@@ -19,7 +19,7 @@ After the first visit everything is stored on the device, so it works with no co
 ## Using it
 
 - Tap Bit (or press Space / Enter on a keyboard). Each answer is one bit from the browser's secure random generator, so yes and no are exactly even.
-- About one answer in five is the long version.
+- About one answer in ten is the long version.
 - No sound on iPhone? Check the ring/silent switch and the volume.
 
 ## Privacy

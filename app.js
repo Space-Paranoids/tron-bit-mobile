@@ -20,7 +20,7 @@ const COLOR = {
 const THINK = 0.35; // pause between the tap and the answer
 const HOLD = 2.0; // how long a plain yes or no is held
 const LONG = { yes: 1.35, no: 1.43 }; // length of "yes yes yes" / "no no no"
-const TRIPLE_CHANCE = 0.2;
+const TRIPLE_CHANCE = 0.1; // about 1 answer in 10 is the long version
 
 const canvas = document.getElementById("bit");
 const glow = document.getElementById("glow");
