@@ -1,0 +1,52 @@
+# Publishes android/Bit.apk as a GitHub Release when a version tag (v*) is pushed.
+# The APK is built outside CI (PWABuilder) and committed to android/ first.
+# Before tagging: replace android/Bit.apk, regenerate android/Bit.apk.sha256,
+# and put the new hash in android/RELEASE_NOTES.md.
+name: Release APK
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    env:
+      # SHA-256 fingerprint of the signing certificate. A different key means a
+      # different (or tampered) APK, so the release stops.
+      EXPECTED_CERT: "9D:31:99:15:7F:CF:24:09:BF:06:3C:4D:C4:34:35:7F:00:19:6B:31:3E:81:10:AE:DE:DA:3C:28:45:6C:FB:AD"
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Tag must be on main
+        run: git merge-base --is-ancestor "$GITHUB_SHA" origin/main
+
+      - name: Check APK hash
+        working-directory: android
+        run: sha256sum -c Bit.apk.sha256
+
+      - name: Release notes must show this hash
+        run: grep -q "$(cut -d' ' -f1 android/Bit.apk.sha256)" android/RELEASE_NOTES.md
+
+      - name: Check signing certificate
+        run: |
+          actual="$(keytool -printcert -jarfile android/Bit.apk | sed -n 's/^[[:space:]]*SHA256: //p' | head -n1)"
+          echo "Signing cert: $actual"
+          test "$actual" = "$EXPECTED_CERT"
+
+      - name: Create release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.ref_name }}
+        run: |
+          cp android/Bit.apk.sha256 SHA256SUMS.txt
+          gh release create "$TAG" android/Bit.apk SHA256SUMS.txt \
+            --title "Bit $TAG for Android" \
+            --notes-file android/RELEASE_NOTES.md \
+            --verify-tag

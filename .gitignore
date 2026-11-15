@@ -1,0 +1,5 @@
+# Never commit Android signing material
+*.keystore
+*.jks
+signing-key-info*
+signing.keystore

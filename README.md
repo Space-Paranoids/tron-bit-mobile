@@ -16,6 +16,14 @@ Open **https://space-paranoids.github.io/tron-bit-mobile/**, then:
 
 After the first visit everything is stored on the device, so it works with no connection.
 
+Prefer a real Android app? Download **Bit.apk** from the [Releases page](https://github.com/Space-Paranoids/tron-bit-mobile/releases/latest), which is the only official download. Install steps and checksums are on that page.
+
+### Publishing a new APK version
+
+1. Replace `android/Bit.apk` with the new build (signed with the same key).
+2. Run `sha256sum Bit.apk > Bit.apk.sha256` in `android/` and put the new hash in `android/RELEASE_NOTES.md`.
+3. Commit to `main`, then push a new tag such as `v1.0.1`. The *Release APK* workflow checks the hash, the notes and the signing certificate, then publishes the release.
+
 ## Using it
 
 - Tap Bit (or press Space / Enter on a keyboard). Each answer is one bit from the browser's secure random generator, so yes and no are exactly even.
