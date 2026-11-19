@@ -8,6 +8,7 @@
 
 const MORPH = 0.3; // seconds to change shape
 const NEUTRAL_HOLD = 0.35; // seconds neutral rests in each form between swaps
+const NEUTRAL_TUCK = 0.85; // neutral's resting form is only just inside the other
 const TUCKED = 0.5; // scale of a shape tucked inside another
 const PULSE = 0.06; // the "speaking" pulse
 const YES_SIZE = 1.05;
@@ -45,6 +46,16 @@ function parseShapes(buf) {
     return tris;
   };
   const neutral = [next(), next()];
+  // The second neutral form is stored turned 90 degrees from the first. Turn
+  // it back (about x) so its points line up with the first form's dimples,
+  // and the first form's points with its dimples, as they pass through each
+  // other. A turn, not a mirror, so the facets still face outward.
+  const n1 = neutral[1];
+  for (let i = 0; i < n1.length; i += 3) {
+    const y = n1[i + 1], z = n1[i + 2];
+    n1[i + 1] = -z;
+    n1[i + 2] = y;
+  }
   return { neutral, yes: next(), no: next() };
 }
 
@@ -61,7 +72,7 @@ function parts(shapes, mood, t) {
     const leg = NEUTRAL_HOLD + MORPH;
     const p = ((t % (2 * leg)) + 2 * leg) % (2 * leg);
     const w = p < leg ? smoothstep(0, 1, (p - NEUTRAL_HOLD) / MORPH) : 1 - smoothstep(0, 1, (p - leg - NEUTRAL_HOLD) / MORPH);
-    const grow = (w) => TUCKED + (1 - TUCKED) * w;
+    const grow = (w) => NEUTRAL_TUCK + (1 - NEUTRAL_TUCK) * w;
     return [
       [shapes.neutral[0], grow(1 - w), COLOR.neutral],
       [shapes.neutral[1], grow(w), COLOR.neutral],
