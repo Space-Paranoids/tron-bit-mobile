@@ -8,9 +8,9 @@
 
 const MORPH = 0.3; // seconds to change shape
 // Neutral's swap timing: a little slower than the film (a new form about
-// every 0.27 s there), to taste: about every 0.39 s here.
-const NEUTRAL_HOLD = 0.27; // seconds neutral rests in each form between swaps
-const NEUTRAL_MORPH = 0.12; // seconds one neutral swap takes
+// every 0.27 s there), to taste: about every 0.4 s here, half of it the swap.
+const NEUTRAL_HOLD = 0.2; // seconds neutral rests in each form between swaps
+const NEUTRAL_MORPH = 0.2; // seconds one neutral swap takes
 const NEUTRAL_TUCK = 0.85; // neutral's resting form is only just inside the other
 const TUCKED = 0.5; // scale of a shape tucked inside another
 const PULSE = 0.06; // the "speaking" pulse
