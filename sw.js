@@ -1,6 +1,6 @@
 // Offline support: everything Bit needs is stored on first visit and served
 // from the device after that. Bump VERSION whenever any file changes.
-const VERSION = "bit-v11";
+const VERSION = "bit-v12";
 const FILES = [
   "./",
   "index.html",
