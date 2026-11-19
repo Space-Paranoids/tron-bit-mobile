@@ -7,7 +7,10 @@
 "use strict";
 
 const MORPH = 0.3; // seconds to change shape
-const NEUTRAL_HOLD = 0.35; // seconds neutral rests in each form between swaps
+// Neutral's swap timing, measured from the film: a new form about every
+// 0.27 s, each swap over in about one frame.
+const NEUTRAL_HOLD = 0.19; // seconds neutral rests in each form between swaps
+const NEUTRAL_MORPH = 0.08; // seconds one neutral swap takes
 const NEUTRAL_TUCK = 0.85; // neutral's resting form is only just inside the other
 const TUCKED = 0.5; // scale of a shape tucked inside another
 const PULSE = 0.06; // the "speaking" pulse
@@ -68,10 +71,10 @@ function parts(shapes, mood, t) {
   if (mood === "neutral") {
     // The two forms pulse into each other the same way yes and no change:
     // one grows out of the other while that one shrinks inside it, over
-    // MORPH seconds, then it rests for NEUTRAL_HOLD before swapping back.
-    const leg = NEUTRAL_HOLD + MORPH;
+    // NEUTRAL_MORPH seconds, then it rests for NEUTRAL_HOLD before swapping back.
+    const leg = NEUTRAL_HOLD + NEUTRAL_MORPH;
     const p = ((t % (2 * leg)) + 2 * leg) % (2 * leg);
-    const w = p < leg ? smoothstep(0, 1, (p - NEUTRAL_HOLD) / MORPH) : 1 - smoothstep(0, 1, (p - leg - NEUTRAL_HOLD) / MORPH);
+    const w = p < leg ? smoothstep(0, 1, (p - NEUTRAL_HOLD) / NEUTRAL_MORPH) : 1 - smoothstep(0, 1, (p - leg - NEUTRAL_HOLD) / NEUTRAL_MORPH);
     const grow = (w) => NEUTRAL_TUCK + (1 - NEUTRAL_TUCK) * w;
     return [
       [shapes.neutral[0], grow(1 - w), COLOR.neutral],
