@@ -24,6 +24,7 @@ const THINK = 0.35; // pause between the tap and the answer
 const HOLD = 2.0; // how long a plain yes or no is held
 const LONG = { yes: 1.35, no: 1.43 }; // length of "yes yes yes" / "no no no"
 const TRIPLE_CHANCE = 0.1; // about 1 answer in 10 is the long version
+const BIT_TAP = 1.1; // taps within this many radii of Bit's centre count as on Bit
 
 const canvas = document.getElementById("bit");
 const glow = document.getElementById("glow");
@@ -290,11 +291,12 @@ const state = {
   backAt: Infinity, // when it goes back to neutral
 };
 
-function ask(now) {
+// `pick` is "yes" or "no" for a chosen answer; left out, the answer is random.
+function ask(now, pick) {
   if (now < state.busyUntil) return;
   unlockAudio();
   hint.classList.add("gone");
-  const answer = randomByte() & 1 ? "yes" : "no";
+  const answer = pick || (randomByte() & 1 ? "yes" : "no");
   const triple = randomByte() < 256 * TRIPLE_CHANCE;
   const start = now + THINK;
   const hold = triple ? LONG[answer] + 0.6 : HOLD;
@@ -365,11 +367,14 @@ function start(shapes) {
   };
   requestAnimationFrame(frame);
 
-  // Tap (or click) on or near Bit asks it; Space or Enter does too.
+  // Tap (or click) on Bit: a random answer; Space or Enter does the same.
+  // Tap the background instead: the left half of the screen always gives
+  // "no", the right half always "yes".
   const t = () => (performance.now() - t0) / 1000;
   canvas.addEventListener("click", (ev) => {
     const dx = ev.clientX - bit.x, dy = ev.clientY - bit.y;
-    if (Math.hypot(dx, dy) <= bit.r * 2) ask(t());
+    if (Math.hypot(dx, dy) <= bit.r * BIT_TAP) ask(t());
+    else ask(t(), ev.clientX < canvas.clientWidth / 2 ? "no" : "yes");
   });
   window.addEventListener("keydown", (ev) => {
     if (ev.target.closest && ev.target.closest("button")) return; // a toggle has focus
