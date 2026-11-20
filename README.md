@@ -27,6 +27,7 @@ Prefer a real Android app? Download **Bit.apk** from the [Releases page](https:/
 ## Using it
 
 - Tap Bit (or press Space / Enter on a keyboard). Each answer is one bit from the browser's secure random generator, so yes and no are exactly even.
+- **Rigging:** tap the background instead of Bit to choose the answer. Left of Bit always gives *no*, right of Bit always gives *yes*. Tapping Bit itself stays random.
 - About one answer in ten is the long version.
 - No sound on iPhone? Check the ring/silent switch and the volume.
 
